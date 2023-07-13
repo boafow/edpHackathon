@@ -2,9 +2,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const routes = require('./routes/routes');
-// const mongoString = `mongodb://localhost:27017/swapi`;
 
-mongoose.connect(mongoString)
+mongoose.connect('mongodb://127.0.0.1/enterpriseDirectory')
 const database = mongoose.connection
 
 database.on('error', (err)=> {
