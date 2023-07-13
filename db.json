@@ -4,7 +4,7 @@
   "phone": "024 123 4567",
   "salary": "100000",
   "role": "HR",
-  "location": "Hartford, CT",
+  "location": "CT",
   "employeeId": "123456",
   "managerId": "123457"
 },
@@ -14,7 +14,7 @@
   "phone": "024 123 4567",
   "salary": "100000",
   "role": "Digital Enablement",
-  "location": "Hartford, CT",
+  "location": "CT",
   "employeeId": "123457",
   "managerId": "0"
 },
@@ -24,7 +24,7 @@
   "phone": "024 123 4567",
   "salary": "100000",
   "role": "Digital Enablement",
-  "location": "Hartford, CT",
+  "location": "CT",
   "employeeId": "123458",
   "managerId": "123457"
 },
@@ -34,7 +34,7 @@
   "phone": "024 123 4567",
   "salary": "100000",
   "role": "Digital Enablement",
-  "location": "Hartford, CT",
+  "location": "CT",
   "employeeId": "123459",
   "managerId": "123457"
 }]
