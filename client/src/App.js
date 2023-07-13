@@ -1,12 +1,21 @@
 import './App.css';
-import SearchBar from './components/SearchBar';
+import Layout from './pages/Layout';
+import Home from './pages/Home';
+import Employee from './pages/Employee';
+import NoPage from './pages/NoPage';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App">
-      <h1>Enterprise Employee Directory</h1>
-      <SearchBar />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="employee" element={<Employee />} />
+          <Route path="*" element={<NoPage />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
