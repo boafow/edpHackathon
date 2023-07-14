@@ -8,6 +8,8 @@ const Home = () => {
   const [employeeId, setEmployeeId] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [employeesPerPage] = useState(15);
 
   const handleEmployeeIdChange = (event) => {
     setEmployeeId(event.target.value);
@@ -75,6 +77,12 @@ const Home = () => {
     }
   };
 
+  const indexOfLastEmployee = currentPage * employeesPerPage;
+  const indexOfFirstEmployee = indexOfLastEmployee - employeesPerPage;
+  const currentEmployees = filteredEmployees.slice(indexOfFirstEmployee, indexOfLastEmployee);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   return (
     <div className="home">
       {!authenticated ? (
@@ -101,8 +109,8 @@ const Home = () => {
           <button onClick={handleSignIn}>Sign In</button>
         </div>
       ) : (
-        <div>
-          <h2>You are signed in!</h2>
+        <div className="header">
+          <h2>Enterprise Directory</h2>
           <div className="searchbar">
             <form className="search" onSubmit={(e) => e.preventDefault()}>
               <input
@@ -114,33 +122,40 @@ const Home = () => {
             </form>
           </div>
           <div className="results">
-            {filteredEmployees.length === 0 ? (
+            {currentEmployees.length === 0 ? (
               <p>No employees found.</p>
             ) : (
-              <table>
-                <thead>
-                  <tr>
-                    <th>Employee ID</th>
-                    <th>Name</th>
-                    <th>Phone</th>
-                    <th>Salary</th>
-                    <th>Role</th>
-                    <th>Location</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {filteredEmployees.map((employee) => (
-                    <tr key={employee._id}>
-                      <td>{employee.employeeId}</td>
-                      <td>{employee.name}</td>
-                      <td>{employee.phone}</td>
-                      <td>{renderSalary(employee)}</td>
-                      <td>{employee.role}</td>
-                      <td>{employee.location}</td>
+              <div>
+                <table className="employee-table">
+                  <thead>
+                    <tr>
+                      <th>Employee ID</th>
+                      <th>Name</th>
+                      <th>Phone</th>
+                      <th>Salary</th>
+                      <th>Role</th>
+                      <th>Location</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {currentEmployees.map((employee) => (
+                      <tr key={employee._id}>
+                        <td>{employee.employeeId}</td>
+                        <td>{employee.name}</td>
+                        <td>{employee.phone}</td>
+                        <td>{renderSalary(employee)}</td>
+                        <td>{employee.role}</td>
+                        <td>{employee.location}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                <Pagination
+                  employeesPerPage={employeesPerPage}
+                  totalEmployees={filteredEmployees.length}
+                  paginate={paginate}
+                />
+              </div>
             )}
           </div>
         </div>
@@ -150,3 +165,35 @@ const Home = () => {
 };
 
 export default Home;
+
+const Pagination = ({ employeesPerPage, totalEmployees, currentPage, paginate }) => {
+  const pageNumbers = Math.ceil(totalEmployees / employeesPerPage);
+
+  return (
+    <div className="pagination">
+      <button
+        disabled={currentPage === 1}
+        onClick={() => paginate(currentPage - 1)}
+        className="pagination-arrow"
+      >
+        &lt;
+      </button>
+      {Array.from({ length: pageNumbers }, (_, index) => (
+        <button
+          key={index}
+          onClick={() => paginate(index + 1)}
+          className={`pagination-number ${currentPage === index + 1 ? "active" : ""}`}
+        >
+          {index + 1}
+        </button>
+      ))}
+      <button
+        disabled={currentPage === pageNumbers}
+        onClick={() => paginate(currentPage + 1)}
+        className="pagination-arrow"
+      >
+        &gt;
+      </button>
+    </div>
+  );
+};
