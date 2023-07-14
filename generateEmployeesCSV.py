@@ -46,11 +46,11 @@ def generate_salary_based_on_department():
     return str(random.randint(salary_range[0], salary_range[1]))
 
 def generate_random_role():
-    roles = ["HR", "Digital Enablement", "Finance", "Sales", "Marketing"]
+    roles = ["1", "2", "3", "4", "5"]
     return random.choice(roles)
 
 def generate_random_location():
-    cities = ["Hartford, CT", "New York, NY", "Boston, MA", "Chicago, IL", "San Francisco, CA"]
+    cities = ["06101", "10001", "02108", "60601", "94016"]
     return random.choice(cities)
 
 def generate_random_employee_id():
