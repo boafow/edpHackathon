@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const routes = require('./routes/routes');
 const cors = require('cors');
+const bodyParser = require('body-parser');
 
 mongoose.connect('mongodb://127.0.0.1:27017/enterpriseDirectory')
 const database = mongoose.connection
@@ -16,11 +17,15 @@ database.once('connected', ()=> {
 })
 
 const app = express();
+app.use(bodyParser.json());
 app.use(cors())
 app.use('/api', routes)
 
 
 app.use(express.json);
+
+
+  
 
 app.listen(3002, ()=> {
     console.log(`Server started at ${3002}`);
