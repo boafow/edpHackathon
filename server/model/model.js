@@ -13,8 +13,17 @@ const employeesSchema = new mongoose.Schema({
 }
 );
 
+const credentialsSchema = new mongoose.Schema({
+    _id: Number,
+    employeeId: String,
+    password: String,
+    role: String
+}
+);
+
 const Employees = mongoose.model('employees', employeesSchema);
+const Credentials = mongoose.model('credentials', credentialsSchema);
 
 module.exports = {
-    Employees
+    Employees, Credentials
 } 
